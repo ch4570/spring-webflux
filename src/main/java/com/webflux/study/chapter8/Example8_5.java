@@ -17,8 +17,11 @@ public class Example8_5 {
         Flux
                 .interval(Duration.ofMillis(300L))
                 .doOnNext(data -> log.info("# emitted by original Flux: {}", data))
+                // onBackPressureBuffer Operator를 사용하여 BUFFER 전략 적용 -> 최대 용량 2
                 .onBackpressureBuffer(2,
+                        // 두 번째 파라미터를 통해 오버플로 발생시 Drop 되는 데이터를 전달받아 후처리가 가능하다.
                         dropped -> log.info("** Overflow & Dropped: {} **", dropped),
+                        // Backpressure 전략을 지정할 수 있다.
                         BufferOverflowStrategy.DROP_LATEST)
                 .doOnNext(data -> log.info("[ # emitted by Buffer: {} ]", data))
                 .publishOn(Schedulers.parallel(), false, 1)
