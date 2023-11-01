@@ -16,7 +16,7 @@ public class Example10_1 {
                 .subscribeOn(Schedulers.boundedElastic())
                 // 원본 Flux에서 emit 되는 데이터를 로그 출력
                 .doOnNext(data -> log.info("# doOnNext: {}", data))
-                // 구독이 발생한 시점에 추가적인 처리를 해줄 수 있다.
+                // 구독이 발생한 시점에 추가적인 처리를 해줄 수 있다.$
                 .doOnSubscribe(subscription -> log.info("# doOnSubscribe"))
                 .subscribe(data -> log.info("# onNext: {}", data));
 
