@@ -16,9 +16,9 @@ public class ExampleTest13_5 {
                         Flux.interval(Duration.ofHours(1)).take(1)
                 ))
                 .expectSubscription()
-                .then(() -> VirtualTimeScheduler
+                .then(() -> VirtualTimeScheduler // 가상 스케줄러의 제어를 받게 해준다.
                         .get()
-                        .advanceTimeBy(Duration.ofHours(1)))
+                        .advanceTimeBy(Duration.ofHours(1))) // 1시간을 당기는 작업을 수행한다.
                 .expectNextCount(11)
                 .expectComplete()
                 .verify();
